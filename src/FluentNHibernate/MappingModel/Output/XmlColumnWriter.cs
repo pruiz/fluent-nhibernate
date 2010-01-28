@@ -17,11 +17,14 @@ namespace FluentNHibernate.MappingModel.Output
         public override void ProcessColumn(ColumnMapping columnMapping)
         {
             document = new XmlDocument();
+	    var doEscape = columnMapping.HasValue(x => x.EscapeName) ?
+		columnMapping.EscapeName : true;
+	    var escape = doEscape ? "`" : "";
 
             var element = document.CreateElement("column");
 
             if (columnMapping.HasValue(x => x.Name))
-                element.WithAtt("name", "`" + columnMapping.Name + "`");
+                element.WithAtt("name", escape + columnMapping.Name + escape);
 
             if (columnMapping.HasValue(x => x.Check))
                 element.WithAtt("check", columnMapping.Check);

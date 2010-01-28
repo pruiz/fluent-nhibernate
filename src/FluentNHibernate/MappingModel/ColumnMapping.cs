@@ -89,6 +89,12 @@ namespace FluentNHibernate.MappingModel
             set { attributes.Set(x => x.Default, value); }
         }
 
+	public bool EscapeName
+	{
+            get { return attributes.Get(x => x.EscapeName); }
+            set { attributes.Set(x => x.EscapeName, value); }
+	}
+
         public override bool IsSpecified(string property)
         {
             return attributes.IsSpecified(property);

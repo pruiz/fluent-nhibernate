@@ -78,5 +78,10 @@ namespace FluentNHibernate.Conventions.Inspections
         {
             get { return GetValueFromColumns<int>(x => x.Scale); }
         }
+
+	public bool EscapeName
+	{
+	   get { return GetValueFromColumns<bool>(x => x.EscapeName); }
+	}
     }
 }

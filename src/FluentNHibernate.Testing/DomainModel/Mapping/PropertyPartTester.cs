@@ -55,6 +55,48 @@ namespace FluentNHibernate.Testing.DomainModel.Mapping
                 .Element("class/property/column").HasAttribute("name", "`column_name`");
         }
 
+        [Test]
+        public void MapWithoutColumnNameUsesPropertyNameUnquotedForPropertyColumnAttribute()
+        {
+            new MappingTester<PropertyTarget>()
+                .ForMapping(m => m.Map(x => x.Name).Not.Quoted())
+                .Element("class/property[@name='Name']/column")
+                    .HasAttribute("name", "Name");
+        }
+
+        [Test]
+        public void MapWithoutColumnNameUsesPropertyNameUnquotedForColumnNameAttribute()
+        {
+            new MappingTester<PropertyTarget>()
+                .ForMapping(m => m.Map(x => x.Name).Not.Quoted())
+                .Element("class/property/column").HasAttribute("name", "Name");
+        }
+
+        [Test]
+        public void MapWithColumnNameUsesColumnNameUnquotedForPropertyColumnAttribute()
+        {
+            new MappingTester<PropertyTarget>()
+                .ForMapping(m => m.Map(x => x.Name, "column_name").Not.Quoted())
+                .Element("class/property[@name='Name']/column")
+                    .HasAttribute("name", "column_name");
+        }
+
+        [Test]
+        public void MapWithColumnNameUsesColumnNameUnqotedForColumnNameAttribute()
+        {
+            new MappingTester<PropertyTarget>()
+                .ForMapping(m => m.Map(x => x.Name, "column_name").Not.Quoted())
+                .Element("class/property/column").HasAttribute("name", "column_name");
+        }
+        
+        [Test]
+        public void MapWithFluentColumnNameUsesColumnNameUnquotedForColumnNameAttribute()
+        {
+            new MappingTester<PropertyTarget>()
+                .ForMapping(m => m.Map(x => x.Name).Column("column_name").Not.Quoted())
+                .Element("class/property/column").HasAttribute("name", "column_name");
+        }
+
         private MappingTester<T> Model<T>(Action<ClassMap<T>> mapping)
         {
             return new MappingTester<T>()

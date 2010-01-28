@@ -155,6 +155,13 @@ namespace FluentNHibernate.Mapping
             return this;
         }
 
+	public PropertyPart Quoted()
+	{
+	    columnAttributes.Set(x => x.EscapeName, nextBool);
+	    nextBool = true;
+	    return this;
+	}
+
         /// <summary>
         /// Specifies that a custom type (an implementation of <see cref="IUserType"/>) should be used for this property for mapping it to/from one or more database columns whose format or type doesn't match this .NET property.
         /// </summary>
