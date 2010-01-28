@@ -21,6 +21,13 @@ namespace FluentNHibernate.Cfg
         private bool mappingsSet;
         private readonly IList<Action<Configuration>> configAlterations = new List<Action<Configuration>>();
 
+	public static bool QuoteColumns { get; set; }
+
+	static FluentConfiguration()
+	{
+		QuoteColumns = true;
+	}
+
         internal FluentConfiguration()
             : this(new Configuration())
         {}

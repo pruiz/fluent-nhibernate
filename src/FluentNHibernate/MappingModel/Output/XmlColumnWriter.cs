@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using FluentNHibernate.Utils;
+using FluentNHibernate.Cfg;
 
 namespace FluentNHibernate.MappingModel.Output
 {
@@ -18,7 +19,7 @@ namespace FluentNHibernate.MappingModel.Output
         {
             document = new XmlDocument();
 	    var doEscape = columnMapping.HasValue(x => x.EscapeName) ?
-		columnMapping.EscapeName : true;
+		columnMapping.EscapeName : FluentConfiguration.QuoteColumns;
 	    var escape = doEscape ? "`" : "";
 
             var element = document.CreateElement("column");
